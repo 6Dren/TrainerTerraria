@@ -106,11 +106,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox cbGodMode;
+        protected System.Windows.Forms.CheckBox cbGodMode;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Label status;
+        public System.Windows.Forms.Label status;
         private System.Windows.Forms.Timer checkStatus;
-        private System.Windows.Forms.Label lbPid;
+        public System.Windows.Forms.Label lbPid;
     }
 }
 
