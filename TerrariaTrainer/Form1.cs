@@ -33,43 +33,35 @@ namespace TerrariaTrainer
         {
 
             bool openProc = m.OpenProcess("Terraria");
-            godmode = new Godmode();
             while (openProc)
             {
-                Thread newthread = new Thread(() =>
-                {
-                    this.BeginInvoke((Action)delegate ()
-                    {
-                        Thread.Sleep(100);
-                        godmode.ScanAobs(m);
-
-                        status.Text = "Status: off";
-                        status.ForeColor = Color.Silver;
-
-                        while (openProc && godmode.addrsHit0 != 0)
-                        {
-                            Thread.Sleep(100);
-                            status.Text = "Status: on";
-                            status.ForeColor = Color.DarkRed;
-                            lbPid.Text = $"PID: {m.GetProcIdFromName("Terraria")}";
-
-                            // GodMode
-
-                            if (cbGodMode.Checked)
-                            {
-                                godmode.ActivateOrNot();
-                            }
-                            else
-                            {
-                                godmode.ActivateOrNot();
-                            }
-                        }
-                    });
-                });
+                godmode = new Godmode();
                 Thread.Sleep(100);
-                if (!(newthread.IsAlive))
-                    newthread.Start();
-                else newthread.Abort();
+                godmode.ScanAobs(m);
+
+                lbStatus.Text = "Status: off";
+                lbStatus.ForeColor = Color.Silver;
+
+                while (openProc && godmode.addrsHit0 != 0)
+                {
+                    Thread.Sleep(100);
+                    lbStatus.Text = "Status: on";
+                    lbStatus.ForeColor = Color.DarkRed;
+                    lbPid.Text = $"PID: {m.GetProcIdFromName("Terraria")}";
+
+                    // GodMode
+
+                    if (cbGodMode.Checked)
+                    {
+                        godmode.ActivateOrNot(m);
+                        //cbGodMode.ForeColor = Color.Gold;
+                    }
+                    else
+                    {
+                        godmode.ActivateOrNot(m);
+                        //cbGodMode.ForeColor = Color.White;
+                    }
+                }
             }
         }
 

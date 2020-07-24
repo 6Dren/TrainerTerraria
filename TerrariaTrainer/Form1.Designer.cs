@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cbGodMode = new System.Windows.Forms.CheckBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.status = new System.Windows.Forms.Label();
+            this.lbStatus = new System.Windows.Forms.Label();
             this.checkStatus = new System.Windows.Forms.Timer(this.components);
             this.lbPid = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -55,17 +55,17 @@
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
-            // status
+            // lbStatus
             // 
-            this.status.AutoSize = true;
-            this.status.BackColor = System.Drawing.Color.Transparent;
-            this.status.Font = new System.Drawing.Font("Andy Std", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.status.ForeColor = System.Drawing.Color.Silver;
-            this.status.Location = new System.Drawing.Point(8, 9);
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(71, 20);
-            this.status.TabIndex = 2;
-            this.status.Text = "Status: off";
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lbStatus.Font = new System.Drawing.Font("Andy Std", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStatus.ForeColor = System.Drawing.Color.Silver;
+            this.lbStatus.Location = new System.Drawing.Point(8, 9);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(71, 20);
+            this.lbStatus.TabIndex = 2;
+            this.lbStatus.Text = "Status: off";
             // 
             // checkStatus
             // 
@@ -92,7 +92,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(504, 297);
             this.Controls.Add(this.lbPid);
-            this.Controls.Add(this.status);
+            this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.cbGodMode);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -100,17 +100,22 @@
             this.Name = "Form1";
             this.Text = "Trainer terraria (v1.4.0.5)";
             this.Load += new System.EventHandler(this.Form1_Load);
+            cbGm = cbGodMode;
+            lbStt = lbStatus;
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        protected System.Windows.Forms.CheckBox cbGodMode;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        public System.Windows.Forms.Label status;
+        private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.Timer checkStatus;
         public System.Windows.Forms.Label lbPid;
+        public System.Windows.Forms.CheckBox cbGodMode;
+
+        public static System.Windows.Forms.CheckBox cbGm; //checkbox Godmode
+        public static System.Windows.Forms.Label lbStt; // label Status
     }
 }
 
