@@ -22,6 +22,7 @@ namespace TerrariaTrainer
         }
         public Mem m = new Mem();
         private Godmode godmode;
+        private UnlimitedMana unlimitedMana;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -33,34 +34,51 @@ namespace TerrariaTrainer
         {
 
             bool openProc = m.OpenProcess("Terraria");
+
+            clickScan(sender, e);
+
             while (openProc)
             {
-                godmode = new Godmode();
                 Thread.Sleep(100);
-                godmode.ScanAobs(m);
+                //unlimitedMana = new UnlimitedMana();
 
-                lbStatus.Text = "Status: off";
+                //unlimitedMana.ScanAobs(m);
+
+                lbStatus.Invoke((MethodInvoker)(() => lbStatus.Text = $"Status: load | Please play some map and click scan!"));
                 lbStatus.ForeColor = Color.Silver;
+                lbPid.Invoke((MethodInvoker)(() => lbPid.Text = $"PID: {m.GetProcIdFromName("Terraria")}"));
 
                 while (openProc && godmode.addrsHit0 != 0)
                 {
                     Thread.Sleep(100);
-                    lbStatus.Text = "Status: on";
+                    lbStatus.Invoke((MethodInvoker)(() => lbStatus.Text = "Status: on"));
                     lbStatus.ForeColor = Color.DarkRed;
-                    lbPid.Text = $"PID: {m.GetProcIdFromName("Terraria")}";
 
-                    // GodMode
+                    //// GodMode
 
-                    if (cbGodMode.Checked)
-                    {
-                        godmode.ActivateOrNot(m);
-                        //cbGodMode.ForeColor = Color.Gold;
-                    }
-                    else
-                    {
-                        godmode.ActivateOrNot(m);
-                        //cbGodMode.ForeColor = Color.White;
-                    }
+                    //if (cbGodMode.Checked)
+                    //{
+                    //    godmode.OnOrOff(m);
+
+                    //}
+                    //else
+                    //{
+                    //    godmode.OnOrOff(m);
+
+                    //}
+
+                    // UnlimitedMana
+
+                    //if (cbGodMode.Checked)
+                    //{
+                    //    unlimitedMana.ActivateOrNot(m);
+                    //    //cbGodMode.ForeColor = Color.Gold;
+                    //}
+                    //else
+                    //{
+                    //    unlimitedMana.ActivateOrNot(m);
+                    //    //cbGodMode.ForeColor = Color.White;
+                    //}
                 }
             }
         }
@@ -81,5 +99,47 @@ namespace TerrariaTrainer
                 aob[i] = Convert.ToByte(bts[i], 16);
             return aob;
         }
+
+        private void cbGodMode_CheckedChanged(object sender, EventArgs e)
+        {
+            //// GodMode  
+            //godmode.OnOrOff(m);
+            //if (cbGodMode.Checked)
+            //    cbUntouch.Visible = true;
+            //else cbUntouch.Visible = false;
+
+
+        }
+
+        private void clickScan(object sender, EventArgs e)
+        {
+            Thread.Sleep(100);
+
+            godmode = new Godmode();
+            godmode.ScanAobs(m);
+
+        }
+
+        private void clickCB(object sender, EventArgs e)
+        {
+            // GodMode  
+            switch (((CheckBox)sender).Name)
+            {
+                case "cbGodMode":
+                    godmode.OnOrOff(m);
+                    if (cbGodMode.Checked)
+                        cbUntouch.Visible = true;
+                    else cbUntouch.Visible = false;
+                    break;
+
+                case "cbUntouch":
+                    godmode.OnOrOff(m);
+                    if (cbGodMode.Checked)
+                        cbUntouch.Visible = true;
+                    else cbUntouch.Visible = false;
+                    break;
+            }
+        }
     }
 }
+

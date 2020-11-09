@@ -124,6 +124,19 @@
     <value>181, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btScan.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAbxJREFUSEvt
+        lctKw1AQhkeUnktrKS4Et6LiSlBw5WUh6Cu5ElRQfAWhpTRJRSq6EleKFPEZqoK49woiKG7iP4eJtKZN
+        A3bZD4aczPxz5txyQn3+RUg0ECi15hvjB8Y84PkKe4bd+dYWOSbSdCBxXZpUVWoS71ewsItdH2Qy05KW
+        jEuwdrOq9TLaPNrQM+YFvh3MYAHPMS+XGw2snUd7G/FHl2PMm6/1knTTGRGHntZf0j4tEQ1LOEaNKIcB
+        HLocHohSExJqT1SADSNuoINBCXXE7ZMxx5J3Ie72NBdwhuWSUCLlQqEAPW8+z35F3HFaOo8sZRHWOb3W
+        ++LqLRVrZ7kA9qIhrt7Ch0Fm/S6uOAh+sIhPh7h6Czq/5QKVbHZGXL0FG1XkAtioDXElAu2e0/8xCcfB
+        h7IqoqeAKC/uRH5PT5oCDAR1ER7xRyTujlwSDeHk3ESds0moPRWlpiBy9xDspJbPj0goBs8Sy3nmtFp/
+        Sk5yAYYvO3e3QMxPz9otvuDwBdkykcayzOF9t0VjzGK0XNJNMigyDvE5J3SxevMlx0WkmQ7eeMyghI7u
+        YXzLfvPPB+ZxLM0+9UmA6AfxseaYw1cHowAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         /9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYa
