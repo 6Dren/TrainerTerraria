@@ -20,74 +20,55 @@ namespace TerrariaTrainer.Cheats
         long addrsMana0 = 0;
         string addressMana0 = "";
 
-        // Scan Mana1 = Mana  = sub[esi+39C],edi
-
-        string aobStartMana1 = "";
-        byte[] aobOnMana1 = { 0 };
-        byte[] aobOffMana1 = { 0 };
-        long addrsMana1 = 0;
-        string addressMana1 = "";
-
         public void ScanAobs(Mem m)
         {
-            // -Mana1
+            // Scan aob set Mana to C8 = freezes Mana: 200
 
-            aobStartMana0 = "29 86 9C 03 00 00 EB 33 80";
-            aobOnMana0 = Form1.ConvertStringToAOB("83 86 9C 03 00 00 32 EB 32");
-            aobOffMana0 = Form1.ConvertStringToAOB(aobStartMana0);
+            //aobStartMana0 = "8B 87 AC 03 00 00 89 06 8B 87 B0 03 00 00";
+            //aobOnMana0 = Form1.ConvertStringToAOB("C7 87 B0 03 00 00 C8 00 00 00 90 90 90 90");
+            //aobOffMana0 = Form1.ConvertStringToAOB(aobStartMana0);
 
-            if (m.AoBScan(0x01000000, 0xf10000000, "83 86 9C 03 00 00 32 EB 32").Result.ToList().Count >= 1)
+            //MessageBox.Show((Form1.ConvertAOBToString(m.ReadBytes(Form1.godMode.addressHit0, 25)).ToUpper() == "8B 87 B4 03 00 00 89 06 8B 87 B8 03 00 00 89 46 10 8B 87 B0 03 00 00 89 46 ").ToString());
+
+            if (Form1.cbGodMode.Enabled & (
+                Form1.ConvertAOBToString(m.ReadBytes(Form1.godMode.addressHit0, 25)).ToUpper() == "8B 87 B4 03 00 00 89 06 C7 82 B8 03 00 00 C8 00 00 00 90 90 90 90 90 89 46 "
+                || Form1.ConvertAOBToString(m.ReadBytes(Form1.godMode.addressHit0, 25)).ToUpper() == "C7 82 B4 03 00 00 FF FF FF 7F C7 82 B8 03 00 00 C8 00 00 00 90 90 90 89 46 "))
             {
-                addrsMana0 = m.AoBScan(0x01000000, 0xf10000000, "83 86 9C 03 00 00 32 EB 32").Result.FirstOrDefault();
-
-                addressMana0 = "0x" + addrsMana0.ToString("x8");
-
-                Form1.cbUM.Checked = true;
+                addressMana0 = Form1.godMode.addressHit0;
+                Form1.cbUnlimitedMana.Invoke((MethodInvoker)(() => Form1.cbUnlimitedMana.Checked = true)); // Checkbox = true
+                Form1.cbUnlimitedMana.ForeColor = Color.Gold;
+                Form1.cbUnlimitedMana.Invoke((MethodInvoker)(() => Form1.cbUnlimitedMana.Enabled = true));
             }
-            else
+            else if (Form1.cbGodMode.Enabled & (
+                Form1.ConvertAOBToString(m.ReadBytes(Form1.godMode.addressHit0, 25)).ToUpper() == "8B 87 B4 03 00 00 89 06 8B 87 B8 03 00 00 89 46 10 8B 87 B0 03 00 00 89 46 "
+                || Form1.ConvertAOBToString(m.ReadBytes(Form1.godMode.addressHit0, 25)).ToUpper() == "C7 82 B4 03 00 00 FF FF FF 7F 90 90 90 90 89 46 10 8B 87 B0 03 00 00 89 46 "))
             {
-                Form1.cbUM.Checked = false;
-                addrsMana0 = m.AoBScan(0x01000000, 0xf10000000, "29 86 9C 03 00 00 EB 33 80").Result.FirstOrDefault();
-                addressMana0 = "0x" + addrsMana0.ToString("x8");
-            }
-
-            // -Mana2
-
-            aobStartMana1 = "29 BE 9C 03 00 00 B8";
-            aobOnMana1 = Form1.ConvertStringToAOB("01 BE 9C 03 00 00 B8");
-            aobOffMana1 = Form1.ConvertStringToAOB(aobStartMana1);
-
-            if (m.AoBScan(0x01000000, 0xf10000000, "01 BE 9C 03 00 00 B8").Result.ToList().Count >= 1)
-            {
-                addrsMana1 = m.AoBScan(0x01000000, 0xf10000000, "01 BE 9C 03 00 00 B8").Result.FirstOrDefault();
-
-                addressMana1 = "0x" + addrsMana1.ToString("x8");
-
-                Form1.cbUM.Checked = true;
-            }
-            else
-            {
-                Form1.cbUM.Checked = false;
-                addrsMana1 = m.AoBScan(0x01000000, 0xf10000000, "29 BE 9C 03 00 00 B8").Result.FirstOrDefault();
-                addressMana1 = "0x" + addrsMana1.ToString("x8");
+                addressMana0 = Form1.godMode.addressHit0;
+                Form1.cbUnlimitedMana.Invoke((MethodInvoker)(() => Form1.cbUnlimitedMana.Checked = false)); // Checkbox = false
+                Form1.cbUnlimitedMana.ForeColor = Color.FromArgb(227, 227, 234);
+                Form1.cbUnlimitedMana.Invoke((MethodInvoker)(() => Form1.cbUnlimitedMana.Enabled = true));
             }
         }
 
-        public void ActivateOrNot(Mem me)
+        public void OnOrOff(Mem me)
         {
-            if (Form1.cbUM.Checked)
+            if (Form1.cbUnlimitedMana.Checked)
             {
-                me.WriteBytes(addressMana0, aobOnMana0);
-                me.WriteBytes(addressMana1, aobOnMana1);
+                if (Form1.cbGodMode.Checked)
+                    me.WriteBytes(addressMana0, Form1.ConvertStringToAOB("C7 82 B4 03 00 00 FF FF FF 7F C7 82 B8 03 00 00 C8 00 00 00 90 90 90 89 46"));
+                else
+                    me.WriteBytes(addressMana0, Form1.ConvertStringToAOB("8B 87 B4 03 00 00 89 06 C7 82 B8 03 00 00 C8 00 00 00 90 90 90 90 90 89 46"));
 
-                Form1.cbUM.ForeColor = Color.Gold;
+                Form1.cbUnlimitedMana.ForeColor = Color.Gold;
             }
             else
             {
-                me.WriteBytes(addressMana0, aobOffMana0);
-                me.WriteBytes(addressMana1, aobOffMana1);
+                if (Form1.cbGodMode.Checked)
+                    me.WriteBytes(addressMana0, Form1.ConvertStringToAOB("C7 82 B4 03 00 00 FF FF FF 7F 90 90 90 90 89 46 10 8B 87 B0 03 00 00 89 46"));
+                else
+                    me.WriteBytes(addressMana0, Form1.ConvertStringToAOB("8B 87 B4 03 00 00 89 06 8B 87 B8 03 00 00 89 46 10 8B 87 B0 03 00 00 89 46"));
 
-                Form1.cbUM.ForeColor = Color.White;
+                Form1.cbUnlimitedMana.ForeColor = Color.FromArgb(227, 227, 234);
             }
         }
     }

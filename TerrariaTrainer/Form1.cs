@@ -21,7 +21,7 @@ namespace TerrariaTrainer
             InitializeComponent();
         }
         public Mem m = new Mem();
-        private Godmode godmode;
+        public static GodMode godMode;
         private UnlimitedMana unlimitedMana;
 
         private void Form1_Load(object sender, EventArgs e)
@@ -48,37 +48,12 @@ namespace TerrariaTrainer
                 lbStatus.ForeColor = Color.Silver;
                 lbPid.Invoke((MethodInvoker)(() => lbPid.Text = $"PID: {m.GetProcIdFromName("Terraria")}"));
 
-                while (openProc && godmode.addrsHit0 != 0)
+                while (openProc && godMode.addrsHit0 != 0)
                 {
                     Thread.Sleep(100);
                     lbStatus.Invoke((MethodInvoker)(() => lbStatus.Text = "Status: on"));
                     lbStatus.ForeColor = Color.DarkRed;
 
-                    //// GodMode
-
-                    //if (cbGodMode.Checked)
-                    //{
-                    //    godmode.OnOrOff(m);
-
-                    //}
-                    //else
-                    //{
-                    //    godmode.OnOrOff(m);
-
-                    //}
-
-                    // UnlimitedMana
-
-                    //if (cbGodMode.Checked)
-                    //{
-                    //    unlimitedMana.ActivateOrNot(m);
-                    //    //cbGodMode.ForeColor = Color.Gold;
-                    //}
-                    //else
-                    //{
-                    //    unlimitedMana.ActivateOrNot(m);
-                    //    //cbGodMode.ForeColor = Color.White;
-                    //}
                 }
             }
         }
@@ -92,6 +67,8 @@ namespace TerrariaTrainer
 
         public static byte[] ConvertStringToAOB(string text)
         {
+            //if (text == "")
+            //    return new byte[] { 0 };
             string[] bts = text.Split(' ');
             byte[] aob = new byte[bts.Length];
 
@@ -100,43 +77,54 @@ namespace TerrariaTrainer
             return aob;
         }
 
-        private void cbGodMode_CheckedChanged(object sender, EventArgs e)
+        public static string ConvertAOBToString(byte[] bts)
         {
-            //// GodMode  
-            //godmode.OnOrOff(m);
-            //if (cbGodMode.Checked)
-            //    cbUntouch.Visible = true;
-            //else cbUntouch.Visible = false;
+            if (bts == null)
+                bts = new byte[] { 0 };
+            string text = "";
 
-
+            foreach (var bt in bts)
+                text += bt.ToString("x2") + " ";
+            return text;
         }
 
         private void clickScan(object sender, EventArgs e)
         {
             Thread.Sleep(100);
 
-            godmode = new Godmode();
-            godmode.ScanAobs(m);
+            // GodMode Scan
+            godMode = new GodMode();
+            godMode.ScanAobs(m);
+
+            // Unlimited Mana Scan
+            unlimitedMana = new UnlimitedMana();
+            unlimitedMana.ScanAobs(m);
 
         }
 
         private void clickCB(object sender, EventArgs e)
         {
-            // GodMode  
             switch (((CheckBox)sender).Name)
             {
+                // GodMode  
                 case "cbGodMode":
-                    godmode.OnOrOff(m);
+                    godMode.OnOrOff(m);
                     if (cbGodMode.Checked)
                         cbUntouch.Visible = true;
                     else cbUntouch.Visible = false;
                     break;
 
+                // cbUntouch
                 case "cbUntouch":
-                    godmode.OnOrOff(m);
+                    godMode.OnOrOff(m);
                     if (cbGodMode.Checked)
                         cbUntouch.Visible = true;
                     else cbUntouch.Visible = false;
+                    break;
+
+                // cbUnlimitedMana
+                case "cbUnlimitedMana":
+                    unlimitedMana.OnOrOff(m);
                     break;
             }
         }

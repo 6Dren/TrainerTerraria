@@ -35,7 +35,7 @@
             this.lbStatus = new System.Windows.Forms.Label();
             this.checkStatus = new System.Windows.Forms.Timer(this.components);
             this.lbPid = new System.Windows.Forms.Label();
-            this.cbUnlimitedMana = new System.Windows.Forms.CheckBox();
+            cbUnlimitedMana = new System.Windows.Forms.CheckBox();
             this.btScan = new System.Windows.Forms.PictureBox();
             this.lbScan = new System.Windows.Forms.Label();
             cbUntouch = new System.Windows.Forms.CheckBox();
@@ -56,7 +56,6 @@
             cbGodMode.TabIndex = 1;
             cbGodMode.Text = "GodMode";
             cbGodMode.UseVisualStyleBackColor = false;
-            cbGodMode.CheckedChanged += new System.EventHandler(this.cbGodMode_CheckedChanged);
             cbGodMode.Click += new System.EventHandler(this.clickCB);
             // 
             // backgroundWorker1
@@ -94,18 +93,19 @@
             // 
             // cbUnlimitedMana
             // 
-            this.cbUnlimitedMana.AutoSize = true;
-            this.cbUnlimitedMana.BackColor = System.Drawing.Color.Transparent;
-            this.cbUnlimitedMana.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbUnlimitedMana.Enabled = false;
-            this.cbUnlimitedMana.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbUnlimitedMana.ForeColor = System.Drawing.Color.Silver;
-            this.cbUnlimitedMana.Location = new System.Drawing.Point(12, 81);
-            this.cbUnlimitedMana.Name = "cbUnlimitedMana";
-            this.cbUnlimitedMana.Size = new System.Drawing.Size(201, 29);
-            this.cbUnlimitedMana.TabIndex = 4;
-            this.cbUnlimitedMana.Text = "Unlimeted Mana";
-            this.cbUnlimitedMana.UseVisualStyleBackColor = false;
+            cbUnlimitedMana.AutoSize = true;
+            cbUnlimitedMana.BackColor = System.Drawing.Color.Transparent;
+            cbUnlimitedMana.Cursor = System.Windows.Forms.Cursors.Hand;
+            cbUnlimitedMana.Enabled = false;
+            cbUnlimitedMana.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            cbUnlimitedMana.ForeColor = System.Drawing.Color.Silver;
+            cbUnlimitedMana.Location = new System.Drawing.Point(12, 81);
+            cbUnlimitedMana.Name = "cbUnlimitedMana";
+            cbUnlimitedMana.Size = new System.Drawing.Size(201, 29);
+            cbUnlimitedMana.TabIndex = 4;
+            cbUnlimitedMana.Text = "Unlimeted Mana";
+            cbUnlimitedMana.UseVisualStyleBackColor = false;
+            cbUnlimitedMana.Click += new System.EventHandler(this.clickCB);
             // 
             // btScan
             // 
@@ -160,7 +160,7 @@
             this.Controls.Add(cbUntouch);
             this.Controls.Add(this.lbScan);
             this.Controls.Add(this.btScan);
-            this.Controls.Add(this.cbUnlimitedMana);
+            this.Controls.Add(cbUnlimitedMana);
             this.Controls.Add(this.lbPid);
             this.Controls.Add(this.lbStatus);
             this.Controls.Add(cbGodMode);
@@ -169,7 +169,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Trainer terraria (v1.4.1.1)";
+            this.Text = "Trainer terraria (v1.4.1.2)";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btScan)).EndInit();
             this.ResumeLayout(false);
@@ -182,13 +182,11 @@
         private System.Windows.Forms.Timer checkStatus;
         public System.Windows.Forms.Label lbPid;
         public System.Windows.Forms.Label lbStatus;
-        public System.Windows.Forms.CheckBox cbUnlimitedMana;
 
         public static System.Windows.Forms.Label lbStt; // label Status
-        public static bool cbGm; //checkbox Godmode
-        public static System.Windows.Forms.CheckBox cbUM; //checkbox UnlimitedMana
         private System.Windows.Forms.PictureBox btScan;
         private System.Windows.Forms.Label lbScan;
+        public static System.Windows.Forms.CheckBox cbUnlimitedMana;
         public static System.Windows.Forms.CheckBox cbGodMode;
         public static System.Windows.Forms.CheckBox cbUntouch;
     }
